@@ -16,12 +16,7 @@
 |Name            | Type       | Port(s)  |
 |:---------------|:-----------|:---------|
 |`Controller1   `| controller |   99999  |
-|`drivetrain    `| motor      | 6, 17, 4, 5 |
-|`Intake center `| motor      | 14       |
-|`conveyor belt `| motor      | 15       |
-|`Tower pick-up `| motor      | 18       |
-|`(NEW) pick-up `| motor      | 14 (INV) |
-|`Chain 1       `| motor      | 12       |
-|`Chain 2       `| motor      | 19       |
+|`drivetrain    `| motor      |  4,5,6,7 |
 
-## FINAL EDIT: (8/25/2022), 4:46 PM
+
+## LAST EDIT: (9/7/2022), 4:36 PM
