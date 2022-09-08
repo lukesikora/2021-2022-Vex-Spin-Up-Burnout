@@ -12,6 +12,8 @@
 // [Name]               [Type]        [Port(s)]
 // Drivetrain           drivetrain    4, 5, 6, 7      
 // Controller1          controller                    
+// Motor18              motor         18              
+// Motor17              motor         17              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -27,20 +29,55 @@ void drawSmileyAt(int x, int y){
 }
 
 //**********************************************************************************************
-/*#
-***example motor control
-void onevent_Controller1ButtonX_pressed_0() {
-  Motor15.setVelocity(100.0, percent);
-  Motor15.spin(forward);
-  wait(1.0, seconds);
-  Motor15.stop();
-  Motor15.setVelocity(70.0, percent);
+// "when Controller1 ButtonL1 pressed" hat block
+void onevent_Controller1ButtonL1_pressed_0() {
+  Motor18.spin(forward);
 }
-*/
+
+// "when Controller1 ButtonL1 released" hat block
+void onevent_Controller1ButtonL1_released_0() {
+  Motor18.stop();
+}
+
+// "when Controller1 ButtonL2 pressed" hat block
+void onevent_Controller1ButtonL2_pressed_0() {
+  Motor18.spin(reverse);
+}
+
+// "when Controller1 ButtonL2 released" hat block
+void onevent_Controller1ButtonL2_released_0() {
+  Motor18.stop();
+}
+
+//**********************************************************************************************
+
+// "when Controller1 ButtonR1 pressed" hat block
+void onevent_Controller1ButtonR1_pressed_0() {
+  Motor17.spin(forward);
+}
+
+// "when Controller1 ButtonR1 released" hat block
+void onevent_Controller1ButtonR1_released_0() {
+  Motor17.stop();
+}
+
+// "when Controller1 ButtonR2 pressed" hat block
+void onevent_Controller1ButtonR2_pressed_0() {
+  Motor17.spin(reverse);
+}
+
+// "when Controller1 ButtonR2 released" hat block
+void onevent_Controller1ButtonR2_released_0() {
+  Motor17.stop();
+}
+
 //**********************************************************************************************
 
 int onauton_autonomous_0() {
-  //fdjihxjguiesdjhugoesd competetion stuff autonoumous
+  Drivetrain.setDriveVelocity(99999,rpm);
+  Drivetrain.drive(forward);
+  wait(1.0, seconds);
+  Drivetrain.stop();
   return 0;
 }
 //**********************************************************************************************
@@ -78,7 +115,7 @@ void VEXcode_driver_task() {
 int main() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vex::competition::bStopTasksBetweenModes = false;
-  
+
   //fun stuff
   Controller1.Screen.print("Pizzahut"); 
   drawSmileyAt(50, 50);
@@ -86,13 +123,28 @@ int main() {
   drawSmileyAt(50, 200);
   drawSmileyAt(400, 200);
 
-
   //setup
   Competition.autonomous(VEXcode_auton_task);
   Competition.drivercontrol(VEXcode_driver_task);
   vexcodeInit();
-
+ 
+ 
+ // setting up speeds
+  Motor18.setVelocity(9999.0, percent);
+  Motor17.setVelocity(9999.0, percent);
+  Drivetrain.setDriveVelocity(100.0, percent);
+  Drivetrain.setTurnVelocity(70.0, percent);
+  
   //register event handlers
+  Controller1.ButtonL1.pressed(onevent_Controller1ButtonL1_pressed_0);
+  Controller1.ButtonL1.released(onevent_Controller1ButtonL1_released_0);
+  Controller1.ButtonL2.pressed(onevent_Controller1ButtonL2_pressed_0);
+  Controller1.ButtonL2.released(onevent_Controller1ButtonL2_released_0);
+  
+  Controller1.ButtonR1.pressed(onevent_Controller1ButtonR1_pressed_0);
+  Controller1.ButtonR1.released(onevent_Controller1ButtonR1_released_0);
+  Controller1.ButtonR2.pressed(onevent_Controller1ButtonR2_pressed_0);
+  Controller1.ButtonR2.released(onevent_Controller1ButtonR2_released_0);
 
 
 }
