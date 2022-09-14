@@ -74,12 +74,10 @@ void onevent_Controller1ButtonR2_released_0() {
 //**********************************************************************************************
 
 int onauton_autonomous_0() {
-  Drivetrain.setDriveVelocity(99999,rpm);
-  Drivetrain.drive(forward);
-  wait(1.0, seconds);
-  Drivetrain.stop();
+  // anfuiahfiuaehg autonomous
   return 0;
 }
+
 //**********************************************************************************************
 
 //AUTONOMOUS SETUP
@@ -93,10 +91,10 @@ void VEXcode_auton_task() {
 
 //DRIVER CONTROLLED
 int ondriver_drivercontrol_0() {
-  Drivetrain.setTurnVelocity(50.0, percent); // TURN SPEED
-  //Motor15.setVelocity(100.0, percent);
-  //Motor18.setVelocity(50.0, percent);
-  Drivetrain.setDriveVelocity(75.0, percent);
+  Motor18.setVelocity(9999.0, percent);
+  Motor17.setVelocity(9999.0, percent);
+  Drivetrain.setDriveVelocity(100.0, percent);
+  Drivetrain.setTurnVelocity(70.0, percent);
   return 0;
 }
 
@@ -132,8 +130,8 @@ int main() {
  // setting up speeds
   Motor18.setVelocity(9999.0, percent);
   Motor17.setVelocity(9999.0, percent);
-  Drivetrain.setDriveVelocity(100.0, percent);
-  Drivetrain.setTurnVelocity(70.0, percent);
+  Drivetrain.setDriveVelocity(9999, percent);
+  Drivetrain.setTurnVelocity(9999, percent);
   
   //register event handlers
   Controller1.ButtonL1.pressed(onevent_Controller1ButtonL1_pressed_0);
