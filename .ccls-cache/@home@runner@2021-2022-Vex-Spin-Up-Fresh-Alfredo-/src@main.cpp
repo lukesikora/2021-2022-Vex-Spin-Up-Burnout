@@ -94,7 +94,7 @@ int ondriver_drivercontrol_0() {
   Motor18.setVelocity(9999.0, percent);
   Motor17.setVelocity(9999.0, percent);
   Drivetrain.setDriveVelocity(100.0, percent);
-  Drivetrain.setTurnVelocity(70.0, percent);
+  Drivetrain.setTurnVelocity(100.0, percent);
   return 0;
 }
 
