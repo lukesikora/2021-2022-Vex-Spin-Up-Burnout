@@ -10,7 +10,7 @@
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
-// Drivetrain           drivetrain    4, 5, 6, 7      
+// Drivetrain           drivetrain    4, 5, 7, 6      
 // Controller1          controller                    
 // Motor18              motor         18              
 // Motor17              motor         17              
@@ -93,7 +93,7 @@ void VEXcode_auton_task() {
 int ondriver_drivercontrol_0() {
   Motor18.setVelocity(9999.0, percent);
   Motor17.setVelocity(9999.0, percent);
-  Drivetrain.setDriveVelocity(100.0, percent);
+  Drivetrain.setDriveVelocity(50.0, percent);
   Drivetrain.setTurnVelocity(100.0, percent);
   return 0;
 }
