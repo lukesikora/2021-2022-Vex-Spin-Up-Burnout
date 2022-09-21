@@ -17,6 +17,8 @@
 |:---------------|:-----------|:---------|
 |`Controller1   `| controller |   99999  |
 |`drivetrain    `| motor      |  4,5,6,7 |
+| `intake       `| motor      |     18   |
+|`   shooter    `| motor      |     17   |
 
 
-## LAST EDIT: (9/15/2022), 5:16 PM
+## LAST EDIT: (9/21/2022), 5:21 PM
