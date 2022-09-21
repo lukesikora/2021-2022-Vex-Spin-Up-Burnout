@@ -10,7 +10,7 @@
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
-// Drivetrain           drivetrain    4, 5, 7, 6      
+// Drivetrain           drivetrain    6, 7, 5, 4      
 // Controller1          controller                    
 // Motor18              motor         18              
 // Motor17              motor         17              
@@ -58,6 +58,7 @@ void onevent_Controller1ButtonR1_pressed_0() {
 
 // "when Controller1 ButtonR1 released" hat block
 void onevent_Controller1ButtonR1_released_0() {
+  Motor17.setStopping(coast);
   Motor17.stop();
 }
 
@@ -68,6 +69,7 @@ void onevent_Controller1ButtonR2_pressed_0() {
 
 // "when Controller1 ButtonR2 released" hat block
 void onevent_Controller1ButtonR2_released_0() {
+  Motor17.setStopping(coast);
   Motor17.stop();
 }
 
@@ -93,7 +95,7 @@ void VEXcode_auton_task() {
 int ondriver_drivercontrol_0() {
   Motor18.setVelocity(9999.0, percent);
   Motor17.setVelocity(9999.0, percent);
-  Drivetrain.setDriveVelocity(50.0, percent);
+  Drivetrain.setDriveVelocity(100.0, percent);
   Drivetrain.setTurnVelocity(100.0, percent);
   return 0;
 }
