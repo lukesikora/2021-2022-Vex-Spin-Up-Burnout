@@ -10,16 +10,21 @@
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
-// Drivetrain           drivetrain    6, 7, 5, 4      
 // Controller1          controller                    
 // Motor18              motor         18              
 // Motor17              motor         17              
+// Motor4               motor         4               
+// Motor5               motor         5               
+// Motor6               motor         6               
+// Motor7               motor         7               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
 using namespace vex;
 competition Competition;
+int Brain_precision = 0, Console_precision = 0, Controller1_precision = 0;
 float myVariable;
+
 
 void drawSmileyAt(int x, int y){
   Brain.Screen.drawCircle(x, y, 40, yellow);
@@ -27,26 +32,35 @@ void drawSmileyAt(int x, int y){
   Brain.Screen.drawCircle(x+20, y-10, 10, blue);
   Brain.Screen.drawRectangle(x-20, y+10, 40, 10, red);
 }
+//**********************************************************************************************
+
+//DRIVING SETTINGS
+
+// "when Controller1 Axis3 changed" hat block
+void onevent_Controller1Axis3Changed_0() {
+  Motor4.spin(forward);
+  Motor7.spin(forward);
+  Motor4.setVelocity(Controller1.Axis3.position(), percent);
+  Motor7.setVelocity(Controller1.Axis3.position(), percent);
+}
+
+// "when Controller1 Axis2 changed" hat block
+void onevent_Controller1Axis2Changed_0() {
+  Motor6.spin(reverse);
+  Motor5.spin(reverse);
+  Motor5.setVelocity(Controller1.Axis2.position(), percent);
+  Motor6.setVelocity(Controller1.Axis2.position(), percent);
+}
 
 //**********************************************************************************************
 // "when Controller1 ButtonL1 pressed" hat block
 void onevent_Controller1ButtonL1_pressed_0() {
-  Motor18.spin(forward);
-}
-
-// "when Controller1 ButtonL1 released" hat block
-void onevent_Controller1ButtonL1_released_0() {
   Motor18.stop();
 }
 
 // "when Controller1 ButtonL2 pressed" hat block
 void onevent_Controller1ButtonL2_pressed_0() {
   Motor18.spin(reverse);
-}
-
-// "when Controller1 ButtonL2 released" hat block
-void onevent_Controller1ButtonL2_released_0() {
-  Motor18.stop();
 }
 
 //**********************************************************************************************
@@ -95,8 +109,6 @@ void VEXcode_auton_task() {
 int ondriver_drivercontrol_0() {
   Motor18.setVelocity(9999.0, percent);
   Motor17.setVelocity(9999.0, percent);
-  Drivetrain.setDriveVelocity(100.0, percent);
-  Drivetrain.setTurnVelocity(100.0, percent);
   return 0;
 }
 
@@ -117,7 +129,9 @@ int main() {
   vex::competition::bStopTasksBetweenModes = false;
 
   //fun stuff
-  Controller1.Screen.print("Pizzahut"); 
+  Controller1.Screen.print(Motor17.velocity(percent));
+  //Controller1.Screen.newLine();
+  
   drawSmileyAt(50, 50);
   drawSmileyAt(400, 50);
   drawSmileyAt(50, 200);
@@ -132,19 +146,16 @@ int main() {
  // setting up speeds
   Motor18.setVelocity(9999.0, percent);
   Motor17.setVelocity(9999.0, percent);
-  Drivetrain.setDriveVelocity(9999, percent);
-  Drivetrain.setTurnVelocity(9999, percent);
-  
   //register event handlers
+  Controller1.Axis3.changed(onevent_Controller1Axis3Changed_0);
+  Controller1.Axis2.changed(onevent_Controller1Axis2Changed_0);
+
+
   Controller1.ButtonL1.pressed(onevent_Controller1ButtonL1_pressed_0);
-  Controller1.ButtonL1.released(onevent_Controller1ButtonL1_released_0);
   Controller1.ButtonL2.pressed(onevent_Controller1ButtonL2_pressed_0);
-  Controller1.ButtonL2.released(onevent_Controller1ButtonL2_released_0);
   
   Controller1.ButtonR1.pressed(onevent_Controller1ButtonR1_pressed_0);
   Controller1.ButtonR1.released(onevent_Controller1ButtonR1_released_0);
   Controller1.ButtonR2.pressed(onevent_Controller1ButtonR2_pressed_0);
   Controller1.ButtonR2.released(onevent_Controller1ButtonR2_released_0);
-
-
 }
