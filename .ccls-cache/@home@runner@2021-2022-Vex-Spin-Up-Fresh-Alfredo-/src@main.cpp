@@ -17,6 +17,7 @@
 // Motor5               motor         5               
 // Motor6               motor         6               
 // Motor7               motor         7               
+// EncoderA             encoder       A, B            
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -55,12 +56,12 @@ void onevent_Controller1Axis2Changed_0() {
 //**********************************************************************************************
 // "when Controller1 ButtonL1 pressed" hat block
 void onevent_Controller1ButtonL1_pressed_0() {
-  Motor18.stop();
+  Motor18.spin(reverse);
 }
 
 // "when Controller1 ButtonL2 pressed" hat block
 void onevent_Controller1ButtonL2_pressed_0() {
-  Motor18.spin(reverse);
+  Motor18.stop();
 }
 
 //**********************************************************************************************
@@ -128,8 +129,7 @@ int main() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vex::competition::bStopTasksBetweenModes = false;
 
-  //fun stuff
-  Controller1.Screen.print(Motor17.velocity(percent));
+ 
   //Controller1.Screen.newLine();
   
   drawSmileyAt(50, 50);
@@ -141,11 +141,16 @@ int main() {
   Competition.autonomous(VEXcode_auton_task);
   Competition.drivercontrol(VEXcode_driver_task);
   vexcodeInit();
- 
+  
  
  // setting up speeds
-  Motor18.setVelocity(9999.0, percent);
+  Motor18.setVelocity(9999, percent);
   Motor17.setVelocity(9999.0, percent);
+
+  //
+
+
+  
   //register event handlers
   Controller1.Axis3.changed(onevent_Controller1Axis3Changed_0);
   Controller1.Axis2.changed(onevent_Controller1Axis2Changed_0);
@@ -158,4 +163,13 @@ int main() {
   Controller1.ButtonR1.released(onevent_Controller1ButtonR1_released_0);
   Controller1.ButtonR2.pressed(onevent_Controller1ButtonR2_pressed_0);
   Controller1.ButtonR2.released(onevent_Controller1ButtonR2_released_0);
+  
+  //print to screen the velocity
+  while (true) {
+  Controller1.Screen.print(static_cast<float>(EncoderA.velocity(rpm)));
+  wait(0.25, seconds);
+  Controller1.Screen.clearLine(1);
+  Controller1.Screen.setCursor(Controller1.Screen.row(), 1);
+  wait(5, msec);
+  }
 }
