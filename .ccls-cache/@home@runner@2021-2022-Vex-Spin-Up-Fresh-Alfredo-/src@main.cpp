@@ -18,6 +18,7 @@
 // Motor6               motor         6               
 // Motor7               motor         7               
 // EncoderA             encoder       A, B            
+// Motor19              motor         19              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -32,6 +33,12 @@ void drawSmileyAt(int x, int y){
   Brain.Screen.drawCircle(x-20, y-10, 10, blue);
   Brain.Screen.drawCircle(x+20, y-10, 10, blue);
   Brain.Screen.drawRectangle(x-20, y+10, 40, 10, red);
+}
+
+void burnout() {
+  Brain.Screen.setFont(mono15);
+  Brain.Screen.newLine();
+  Brain.Screen.print("Pizza;\x0AWord");
 }
 
 void porsche() {
@@ -64,6 +71,27 @@ void porsche() {
   Brain.Screen.print("                          ~-_/_/                  ~~ ~~");
 
 }
+
+void name() {
+  Brain.Screen.setFont(mono20);
+  Brain.Screen.newLine();
+  Brain.Screen.print("______                              _  ");
+  Brain.Screen.newLine();
+  Brain.Screen.print("| ___ \\                            | |  ");
+  Brain.Screen.newLine();
+  Brain.Screen.print("| |_/ /_   _ _ __ _ __   ___  _   _| |_ ");
+  Brain.Screen.newLine();
+  Brain.Screen.print("| ___ \\ | | | '__| '_ \\ / _ \\| | | | __|");
+  Brain.Screen.newLine();
+  Brain.Screen.print("| |_/ / |_| | |  | | | | (_) | |_| | |_ ");
+  Brain.Screen.newLine();
+  Brain.Screen.print("\\____/ \\__,_|_|  |_| |_|\\___/ \\__,_|\\__|");
+  Brain.Screen.newLine();
+  Brain.Screen.print("_____________________________________________");
+  Brain.Screen.newLine();
+  Brain.Screen.print("_____________________________________________");
+
+}
 //**********************************************************************************************
 
 //DRIVING SETTINGS
@@ -79,21 +107,33 @@ void onevent_Controller1Axis3Changed_0() {
   Motor7.setVelocity(Controller1.Axis3.position(), percent);
 }
 
-// "when Controller1 Axis4 changed" hat block
-void onevent_Controller1Axis4Changed_0() {
+// "when Controller1 Axis1 changed" hat block
+void onevent_Controller1Axis1Changed_0() {
   Motor4.spin(reverse);
   Motor7.spin(reverse);
   Motor6.spin(reverse);
   Motor5.spin(reverse);
-  Motor5.setVelocity((-1.0 * Controller1.Axis4.position()), percent);
-  Motor6.setVelocity((-1.0 * Controller1.Axis4.position()), percent);
-  Motor4.setVelocity(Controller1.Axis4.position(), percent);
-  Motor7.setVelocity(Controller1.Axis4.position(), percent);
+  Motor5.setVelocity((-0.5 * Controller1.Axis1.position()), percent);
+  Motor6.setVelocity((-0.5 * Controller1.Axis1.position()), percent);
+  Motor4.setVelocity(0.5 * Controller1.Axis1.position(), percent);
+  Motor7.setVelocity(0.5 * Controller1.Axis1.position(), percent);
 }
+
+//**********************************************************************************************
+// "when Controller1 ButtonL1 pressed" hat block
+void onevent_Controller1ButtonL1_pressed_0() {
+  Motor17.spin(forward);
+}
+
+// "when Controller1 ButtonL2 pressed" hat block
+void onevent_Controller1ButtonL2_pressed_0() {
+  Motor17.stop();
+}
+
 //**********************************************************************************************
 // "when Controller1 ButtonR1 pressed" hat block
 void onevent_Controller1ButtonR1_pressed_0() {
-  Motor18.spin(forward);
+  Motor18.spin(reverse);
 }
 
 // "when Controller1 ButtonR2 pressed" hat block
@@ -103,27 +143,14 @@ void onevent_Controller1ButtonR2_pressed_0() {
 
 //**********************************************************************************************
 
-// "when Controller1 ButtonL1 pressed" hat block
-void onevent_Controller1ButtonL1_pressed_0() {
-  Motor17.spin(forward);
+// "when Controller1 ButtonA pressed" hat block
+void onevent_Controller1ButtonA_pressed_0() {
+  Motor19.setVelocity(20, percent);
+  Motor19.spinFor(reverse, 240.0, degrees, true);
+  Motor19.spinFor(forward, 240.0, degrees, true);
+  Motor19.stop();
 }
 
-// "when Controller1 ButtonL1 released" hat block
-void onevent_Controller1ButtonL1_released_0() {
-  Motor17.setStopping(coast);
-  Motor17.stop();
-}
-
-// "when Controller1 ButtonL2 pressed" hat block
-void onevent_Controller1ButtonL2_pressed_0() {
-  Motor17.spin(reverse);
-}
-
-// "when Controller1 ButtonL2 released" hat block
-void onevent_Controller1ButtonL2_released_0() {
-  Motor17.setStopping(coast);
-  Motor17.stop();
-}
 
 //**********************************************************************************************
 
@@ -173,7 +200,8 @@ int main() {
   //drawSmileyAt(400, 200);
 
   //print car
-  porsche();
+  //porsche();
+  name();
 
   //setup
   Competition.autonomous(VEXcode_auton_task);
@@ -184,22 +212,23 @@ int main() {
  // setting up speeds
   Motor18.setVelocity(9999, percent);
   Motor17.setVelocity(9999.0, percent);
-
+  Motor19.setVelocity(20.0, percent);
 
   //register event handlers
   Controller1.Axis3.changed(onevent_Controller1Axis3Changed_0);
-  Controller1.Axis4.changed(onevent_Controller1Axis4Changed_0);
+  Controller1.Axis1.changed(onevent_Controller1Axis1Changed_0);
 
   //Controls
   Controller1.ButtonR1.pressed(onevent_Controller1ButtonR1_pressed_0);
   Controller1.ButtonR2.pressed(onevent_Controller1ButtonR2_pressed_0);
   
   Controller1.ButtonL1.pressed(onevent_Controller1ButtonL1_pressed_0);
-  Controller1.ButtonL1.released(onevent_Controller1ButtonL1_released_0);
   Controller1.ButtonL2.pressed(onevent_Controller1ButtonL2_pressed_0);
-  Controller1.ButtonL2.released(onevent_Controller1ButtonL2_released_0);
   
+  Controller1.ButtonA.pressed(onevent_Controller1ButtonA_pressed_0);
+
   //print to screen the velocity
+  Motor19.spinFor(forward, 240.0, degrees, true);
   EncoderA.setRotation(0.0, degrees);
   while (true) {
   Controller1.Screen.print(static_cast<float>(EncoderA.velocity(rpm)));
