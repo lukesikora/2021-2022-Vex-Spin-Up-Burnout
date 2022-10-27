@@ -113,10 +113,10 @@ void onevent_Controller1Axis1Changed_0() {
   Motor7.spin(reverse);
   Motor6.spin(reverse);
   Motor5.spin(reverse);
-  Motor5.setVelocity((-0.5 * Controller1.Axis1.position()), percent);
-  Motor6.setVelocity((-0.5 * Controller1.Axis1.position()), percent);
-  Motor4.setVelocity(0.5 * Controller1.Axis1.position(), percent);
-  Motor7.setVelocity(0.5 * Controller1.Axis1.position(), percent);
+  Motor5.setVelocity((-0.75 * Controller1.Axis1.position()), percent);
+  Motor6.setVelocity((-0.75 * Controller1.Axis1.position()), percent);
+  Motor4.setVelocity(0.75 * Controller1.Axis1.position(), percent);
+  Motor7.setVelocity(0.75 * Controller1.Axis1.position(), percent);
 }
 
 //**********************************************************************************************
@@ -145,9 +145,9 @@ void onevent_Controller1ButtonR2_pressed_0() {
 
 // "when Controller1 ButtonA pressed" hat block
 void onevent_Controller1ButtonA_pressed_0() {
-  Motor19.setVelocity(20, percent);
-  Motor19.spinFor(reverse, 240.0, degrees, true);
-  Motor19.spinFor(forward, 240.0, degrees, true);
+  Motor19.setVelocity(100, percent);
+  Motor19.spinFor(reverse, 500.0, degrees, true);
+  Motor19.spinFor(forward, 510.0, degrees, true);
   Motor19.stop();
 }
 
@@ -212,7 +212,7 @@ int main() {
  // setting up speeds
   Motor18.setVelocity(9999, percent);
   Motor17.setVelocity(9999.0, percent);
-  Motor19.setVelocity(20.0, percent);
+  Motor19.setVelocity(100.0, percent);
 
   //register event handlers
   Controller1.Axis3.changed(onevent_Controller1Axis3Changed_0);
@@ -228,7 +228,7 @@ int main() {
   Controller1.ButtonA.pressed(onevent_Controller1ButtonA_pressed_0);
 
   //print to screen the velocity
-  Motor19.spinFor(forward, 240.0, degrees, true);
+  Motor19.spinFor(forward, 520.0, degrees, true);
   EncoderA.setRotation(0.0, degrees);
   while (true) {
   Controller1.Screen.print(static_cast<float>(EncoderA.velocity(rpm)));
