@@ -146,8 +146,10 @@ void onevent_Controller1ButtonR2_pressed_0() {
 // "when Controller1 ButtonA pressed" hat block
 void onevent_Controller1ButtonA_pressed_0() {
   Motor19.setVelocity(100, percent);
-  Motor19.spinFor(reverse, 500.0, degrees, true);
-  Motor19.spinFor(forward, 510.0, degrees, true);
+  //Motor19.spinFor(reverse, 500.0, degrees, true);
+  //Motor19.spinFor(forward, 510.0, degrees, true);
+  Motor19.spinFor(reverse, 200.0, degrees, true);
+  Motor19.spinFor(forward, 200.0, degrees, true);
   Motor19.stop();
 }
 
@@ -228,7 +230,8 @@ int main() {
   Controller1.ButtonA.pressed(onevent_Controller1ButtonA_pressed_0);
 
   //print to screen the velocity
-  Motor19.spinFor(forward, 520.0, degrees, true);
+  //Motor19.spinFor(forward, 520.0, degrees, true);
+  Motor19.spinFor(forward, 200.0, degrees, true);
   EncoderA.setRotation(0.0, degrees);
   while (true) {
   Controller1.Screen.print(static_cast<float>(EncoderA.velocity(rpm)));
