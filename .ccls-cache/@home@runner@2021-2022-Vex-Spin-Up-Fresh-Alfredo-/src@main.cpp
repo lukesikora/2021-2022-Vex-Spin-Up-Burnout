@@ -148,11 +148,24 @@ void onevent_Controller1ButtonA_pressed_0() {
   Motor19.setVelocity(100, percent);
   //Motor19.spinFor(reverse, 500.0, degrees, true);
   //Motor19.spinFor(forward, 510.0, degrees, true);
-  Motor19.spinFor(reverse, 200.0, degrees, true);
-  Motor19.spinFor(forward, 200.0, degrees, true);
+  Motor19.spinFor(reverse, 250.0, degrees, true);
+  Motor19.spinFor(forward, 240.0, degrees, true);
   Motor19.stop();
 }
-
+void onevent_Controller1ButtonUp_pressed_0() {
+  Motor19.setVelocity(100, percent);
+  Motor19.spin(reverse);
+}
+void onevent_Controller1ButtonUp_released_0() {
+  Motor19.stop();
+}
+void onevent_Controller1ButtonDown_pressed_0() {
+  Motor19.setVelocity(100, percent);
+  Motor19.spin(forward);
+}
+void onevent_Controller1ButtonDown_released_0() {
+  Motor19.stop();
+}
 
 //**********************************************************************************************
 
@@ -229,9 +242,13 @@ int main() {
   
   Controller1.ButtonA.pressed(onevent_Controller1ButtonA_pressed_0);
 
+  Controller1.ButtonUp.pressed(onevent_Controller1ButtonUp_pressed_0);
+  Controller1.ButtonUp.released(onevent_Controller1ButtonUp_released_0);
+  Controller1.ButtonDown.pressed(onevent_Controller1ButtonDown_pressed_0);
+  Controller1.ButtonDown.released(onevent_Controller1ButtonDown_released_0);
   //print to screen the velocity
   //Motor19.spinFor(forward, 520.0, degrees, true);
-  Motor19.spinFor(forward, 200.0, degrees, true);
+  Motor19.spinFor(forward, 250.0, degrees, true);
   EncoderA.setRotation(0.0, degrees);
   while (true) {
   Controller1.Screen.print(static_cast<float>(EncoderA.velocity(rpm)));
