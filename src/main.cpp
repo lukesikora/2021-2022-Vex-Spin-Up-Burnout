@@ -19,6 +19,8 @@
 // Motor7               motor         7               
 // EncoderA             encoder       A, B            
 // Motor19              motor         19              
+// DigitalOutC          digital_out   C               
+// Motor14              motor         14              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -167,6 +169,11 @@ void onevent_Controller1ButtonDown_released_0() {
   Motor19.stop();
 }
 
+void onevent_Controller1ButtonX_pressed_0() {
+  Motor14.setVelocity(50, percent);
+  Motor14.spinFor(forward, 150.0, degrees, true);
+  
+}
 //**********************************************************************************************
 
 int onauton_autonomous_0() {
@@ -201,6 +208,17 @@ void VEXcode_driver_task() {
   while(Competition.isDriverControl() && Competition.isEnabled()) {this_thread::sleep_for(10);}
   drive0.stop();
   return;
+}
+//**********************************************************************************************
+//      PHENENEMUATICSSSS
+// "when Controller1 ButtonB pressed" hat block
+void onevent_Controller1ButtonB_pressed_0() {
+  DigitalOutC.set(true);
+}
+
+// "when Controller1 ButtonB released" hat block
+void onevent_Controller1ButtonB_released_0() {
+  DigitalOutC.set(false);
 }
 //**********************************************************************************************
 
@@ -246,6 +264,11 @@ int main() {
   Controller1.ButtonUp.released(onevent_Controller1ButtonUp_released_0);
   Controller1.ButtonDown.pressed(onevent_Controller1ButtonDown_pressed_0);
   Controller1.ButtonDown.released(onevent_Controller1ButtonDown_released_0);
+  Controller1.ButtonX.pressed(onevent_Controller1ButtonX_pressed_0);
+
+  Controller1.ButtonB.pressed(onevent_Controller1ButtonB_pressed_0);
+  Controller1.ButtonB.released(onevent_Controller1ButtonB_released_0);
+
   //print to screen the velocity
   //Motor19.spinFor(forward, 520.0, degrees, true);
   Motor19.spinFor(forward, 250.0, degrees, true);

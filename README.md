@@ -13,12 +13,22 @@
 - Shreepaad Earanti
   
 #
-|Name            | Type       | Port(s)  |
+|BUTTON            | FUNCTION       | PORT(S)  |
 |:---------------|:-----------|:---------|
-|`Controller1   `| controller |   99999  |
-|`drivetrain    `| motor      |  4,5,6,7 |
-| `intake       `| motor      |     18   |
-|`   shooter    `| motor      |     17   |
+|`Controller1   `| Controller |   99999  |
+|_______________| _______________ | _______________|
+|`   Left stick `| Forward/backwards      |  4,5,6,7 |
+|`   Right stick `| Left/Right      |  4,5,6,7 |
+|_______________| _______________ | _______________|
+|`   L1    `| Start shooter      |     18   |
+| `    L2   `| Stop shooter      |     18   |
+|_______________| _______________ | _______________|
+|`   L1    `| Start intake      |     17   |
+| `    L2   `| Stop intake      |     17   |
+|_______________| _______________ | _______________|
+| `    A   `| Motor Push      |     19   |
+| `    X   `| String extender      |     14   |
+| `    B   `| Pneumatics      |     C   |
 
 
 ## LAST EDIT: (11/9/2022), 5:20 PM
