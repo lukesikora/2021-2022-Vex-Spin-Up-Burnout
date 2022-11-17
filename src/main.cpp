@@ -176,8 +176,72 @@ void onevent_Controller1ButtonX_pressed_0() {
 }
 //**********************************************************************************************
 
+void secForward(){
+  wait(10, seconds);
+}
+void secSide(){
+  wait(10, seconds);
+}
+void velocityy(){
+  Motor4.setVelocity(20, percent);
+  Motor7.setVelocity(20, percent);
+  Motor6.setVelocity(20, percent);
+  Motor5.setVelocity(20, percent);
+}
+void stopp() {
+  Motor4.stop();
+  Motor7.stop();
+  Motor6.stop();
+  Motor5.stop();
+}
+void driveUp() {
+  velocityy();
+  
+  Motor4.spin(forward);
+  Motor7.spin(forward);
+  Motor6.spin(forward);
+  Motor5.spin(forward);
+  secForward();
+
+  stopp();
+}
+void driveBack() {
+  velocityy();
+  
+  Motor4.spin(reverse);
+  Motor7.spin(reverse);
+  Motor6.spin(reverse);
+  Motor5.spin(reverse);
+  secForward();
+
+  stopp();
+}
+void driveLeft() {
+  velocityy();
+  
+  Motor4.spin(forward);
+  Motor7.spin(forward);
+  Motor6.spin(reverse);
+  Motor5.spin(reverse);
+  secSide();
+
+  stopp();
+}
+void driveRight() {
+  velocityy();
+  
+  Motor4.spin(reverse);
+  Motor7.spin(reverse);
+  Motor6.spin(forward);
+  Motor5.spin(forward);
+  secSide();
+
+  stopp();
+}
+
+
 int onauton_autonomous_0() {
-  // anfuiahfiuaehg autonomous
+  driveRight();
   return 0;
 }
 
@@ -225,7 +289,10 @@ void onevent_Controller1ButtonB_released_0() {
 int main() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vex::competition::bStopTasksBetweenModes = false;
-  
+  Competition.autonomous(VEXcode_auton_task);
+  Competition.drivercontrol(VEXcode_driver_task);
+  vexcodeInit();
+
   //fun smile faces
   //drawSmileyAt(50, 50);
   //drawSmileyAt(400, 50);
@@ -234,14 +301,8 @@ int main() {
 
   //print car
   //porsche();
-  name();
+  //name();
 
-  //setup
-  Competition.autonomous(VEXcode_auton_task);
-  Competition.drivercontrol(VEXcode_driver_task);
-  vexcodeInit();
-  
- 
  // setting up speeds
   Motor18.setVelocity(9999, percent);
   Motor17.setVelocity(9999.0, percent);
