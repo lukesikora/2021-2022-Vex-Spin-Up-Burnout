@@ -26,9 +26,12 @@
 |`   L1    `| Start intake      |     17   |
 | `    L2   `| Stop intake      |     17   |
 |_______________| _______________ | _______________|
+|`   Up    `| Manual push up      |     18   |
+| `    Down   `| Manual push down     |     18   |
+|_______________| _______________ | _______________|
 | `    A   `| Motor Push      |     19   |
+| `    B   `| Pneumatics push     |     C   |
 | `    X   `| String extender      |     14   |
-| `    B   `| Pneumatics      |     C   |
 
 
 ## LAST EDIT: (11/9/2022), 5:20 PM
