@@ -174,6 +174,17 @@ void onevent_Controller1ButtonX_pressed_0() {
   Motor14.spinFor(forward, 150.0, degrees, true);
   
 }
+  //PHENENEMUATICSSSS
+// "when Controller1 ButtonB pressed" hat block
+void onevent_Controller1ButtonB_pressed_0() {
+  DigitalOutC.set(false);
+}
+
+// "when Controller1 ButtonB released" hat block
+void onevent_Controller1ButtonB_released_0() {
+  DigitalOutC.set(true);
+}
+
 //**********************************************************************************************
 
 void secForward(){
@@ -273,18 +284,6 @@ void VEXcode_driver_task() {
   drive0.stop();
   return;
 }
-//**********************************************************************************************
-//      PHENENEMUATICSSSS
-// "when Controller1 ButtonB pressed" hat block
-void onevent_Controller1ButtonB_pressed_0() {
-  DigitalOutC.set(true);
-}
-
-// "when Controller1 ButtonB released" hat block
-void onevent_Controller1ButtonB_released_0() {
-  DigitalOutC.set(false);
-}
-//**********************************************************************************************
 
 int main() {
   // Initializing Robot Configuration. DO NOT REMOVE!
@@ -307,6 +306,7 @@ int main() {
   Motor18.setVelocity(9999, percent);
   Motor17.setVelocity(9999.0, percent);
   Motor19.setVelocity(100.0, percent);
+  
 
   //register event handlers
   Controller1.Axis3.changed(onevent_Controller1Axis3Changed_0);
@@ -334,6 +334,7 @@ int main() {
   //Motor19.spinFor(forward, 520.0, degrees, true);
   Motor19.spinFor(forward, 250.0, degrees, true);
   EncoderA.setRotation(0.0, degrees);
+  DigitalOutC.set(true);
   while (true) {
   Controller1.Screen.print(static_cast<float>(EncoderA.velocity(rpm)));
   wait(0.25, seconds);
