@@ -18,7 +18,6 @@
 // Motor6               motor         6               
 // Motor7               motor         7               
 // EncoderA             encoder       A, B            
-// Motor19              motor         19              
 // DigitalOutC          digital_out   C               
 // Motor14              motor         14              
 // ---- END VEXCODE CONFIGURED DEVICES ----
@@ -135,7 +134,7 @@ void onevent_Controller1ButtonL2_pressed_0() {
 //**********************************************************************************************
 // "when Controller1 ButtonR1 pressed" hat block
 void onevent_Controller1ButtonR1_pressed_0() {
-  Motor18.spin(reverse);
+  Motor18.spin(forward);
 }
 
 // "when Controller1 ButtonR2 pressed" hat block
@@ -145,43 +144,23 @@ void onevent_Controller1ButtonR2_pressed_0() {
 
 //**********************************************************************************************
 
-// "when Controller1 ButtonA pressed" hat block
-void onevent_Controller1ButtonA_pressed_0() {
-  Motor19.setVelocity(100, percent);
-  //Motor19.spinFor(reverse, 500.0, degrees, true);
-  //Motor19.spinFor(forward, 510.0, degrees, true);
-  Motor19.spinFor(reverse, 250.0, degrees, true);
-  Motor19.spinFor(forward, 240.0, degrees, true);
-  Motor19.stop();
-}
-void onevent_Controller1ButtonUp_pressed_0() {
-  Motor19.setVelocity(100, percent);
-  Motor19.spin(reverse);
-}
-void onevent_Controller1ButtonUp_released_0() {
-  Motor19.stop();
-}
 void onevent_Controller1ButtonDown_pressed_0() {
-  Motor19.setVelocity(100, percent);
-  Motor19.spin(forward);
+  Motor14.setVelocity(50, percent);
+  wait(2.0, seconds);
+  if (Controller1.ButtonDown.pressing()) {
+    Motor14.spinFor(forward, 150.0, degrees, true);
+  }
 }
 void onevent_Controller1ButtonDown_released_0() {
-  Motor19.stop();
-}
-
-void onevent_Controller1ButtonX_pressed_0() {
   Motor14.setVelocity(50, percent);
-  Motor14.spinFor(forward, 150.0, degrees, true);
+  Motor14.stop();
   
 }
   //PHENENEMUATICSSSS
-// "when Controller1 ButtonB pressed" hat block
-void onevent_Controller1ButtonB_pressed_0() {
+// "when Controller1 ButtonUp pressed" hat block
+void onevent_Controller1ButtonUp_pressed_0() {
   DigitalOutC.set(false);
-}
-
-// "when Controller1 ButtonB released" hat block
-void onevent_Controller1ButtonB_released_0() {
+  wait(0.5, seconds);
   DigitalOutC.set(true);
 }
 
@@ -305,8 +284,7 @@ int main() {
  // setting up speeds
   Motor18.setVelocity(9999, percent);
   Motor17.setVelocity(9999.0, percent);
-  Motor19.setVelocity(100.0, percent);
-  
+  DigitalOutC.set(true);
 
   //register event handlers
   Controller1.Axis3.changed(onevent_Controller1Axis3Changed_0);
@@ -319,22 +297,12 @@ int main() {
   Controller1.ButtonL1.pressed(onevent_Controller1ButtonL1_pressed_0);
   Controller1.ButtonL2.pressed(onevent_Controller1ButtonL2_pressed_0);
   
-  Controller1.ButtonA.pressed(onevent_Controller1ButtonA_pressed_0);
-
-  Controller1.ButtonUp.pressed(onevent_Controller1ButtonUp_pressed_0);
-  Controller1.ButtonUp.released(onevent_Controller1ButtonUp_released_0);
   Controller1.ButtonDown.pressed(onevent_Controller1ButtonDown_pressed_0);
   Controller1.ButtonDown.released(onevent_Controller1ButtonDown_released_0);
-  Controller1.ButtonX.pressed(onevent_Controller1ButtonX_pressed_0);
-
-  Controller1.ButtonB.pressed(onevent_Controller1ButtonB_pressed_0);
-  Controller1.ButtonB.released(onevent_Controller1ButtonB_released_0);
+  Controller1.ButtonUp.pressed(onevent_Controller1ButtonUp_pressed_0);
 
   //print to screen the velocity
-  //Motor19.spinFor(forward, 520.0, degrees, true);
-  Motor19.spinFor(forward, 250.0, degrees, true);
   EncoderA.setRotation(0.0, degrees);
-  DigitalOutC.set(true);
   while (true) {
   Controller1.Screen.print(static_cast<float>(EncoderA.velocity(rpm)));
   wait(0.25, seconds);

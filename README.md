@@ -20,18 +20,14 @@
 |`   Left stick `| Forward/backwards      |  4,5,6,7 |
 |`   Right stick `| Left/Right      |  4,5,6,7 |
 |_______________| _______________ | _______________|
-|`   L1    `| Start shooter      |     18   |
-| `    L2   `| Stop shooter      |     18   |
+|`   18    `| Start shooter      |     R1   |
+| `    18   `| Stop shooter      |     R2   |
 |_______________| _______________ | _______________|
-|`   L1    `| Start intake      |     17   |
-| `    L2   `| Stop intake      |     17   |
+|`   17    `| Start intake      |     L1   |
+| `    17   `| Stop intake      |     L2   |
 |_______________| _______________ | _______________|
-|`   Up    `| Manual push up      |     18   |
-| `    Down   `| Manual push down     |     18   |
-|_______________| _______________ | _______________|
-| `    A   `| Motor Push      |     19   |
-| `    B   `| Pneumatics push     |     C   |
-| `    X   `| String extender      |     14   |
+| `    C   `| Pneumatics push     |     Up   |
+| `    14   `| String extender      |     Down   |
 
 
 ## LAST EDIT: (11/9/2022), 5:20 PM
