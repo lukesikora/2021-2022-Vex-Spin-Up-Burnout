@@ -1,4 +1,4 @@
-# Fresh Alfredo (1965 N)
+# BURNOUT (1965 N)
 ![](./media/Stevenson_vex_logo.png "Stevenson Robotics 2021-2022")
 ## Designed for the 2021-2022 VRC [Spin Up](https://www.vexrobotics.com/v5/competition/vrc-current-game).
 
@@ -30,5 +30,4 @@
 | `    14   `| String extender      |     Down   |
 
 
-## LAST EDIT: (12/1/2022), 5:15 PM
-## December 1st😏 
+## LAST EDIT: (12/5/2022), 9:12 PM 
