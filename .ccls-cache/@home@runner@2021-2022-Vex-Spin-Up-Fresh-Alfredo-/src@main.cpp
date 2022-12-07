@@ -148,7 +148,7 @@ void onevent_Controller1ButtonDown_pressed_0() {
   Motor14.setVelocity(50, percent);
   wait(2.0, seconds);
   if (Controller1.ButtonDown.pressing()) {
-    Motor14.spinFor(forward, 150.0, degrees, true);
+    Motor14.spinFor(forward, 200.0, degrees, true);
   }
 }
 void onevent_Controller1ButtonDown_released_0() {
