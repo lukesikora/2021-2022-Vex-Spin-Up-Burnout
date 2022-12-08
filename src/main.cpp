@@ -142,6 +142,13 @@ void onevent_Controller1ButtonR2_pressed_0() {
   Motor18.stop();
 }
 
+void onevent_Controller1ButtonA_pressed_0() {
+  DigitalOutC.set(false);
+  wait(2.0, seconds);
+  DigitalOutC.set(true);
+}
+
+
 //**********************************************************************************************
 
 void onevent_Controller1ButtonDown_pressed_0() {
@@ -156,6 +163,7 @@ void onevent_Controller1ButtonDown_released_0() {
   Motor14.stop();
   
 }
+
   //PHENENEMUATICSSSS
 // "when Controller1 ButtonUp pressed" hat block
 void onevent_Controller1ButtonUp_pressed_0() {
@@ -163,7 +171,11 @@ void onevent_Controller1ButtonUp_pressed_0() {
   wait(0.5, seconds);
   DigitalOutC.set(true);
 }
-
+/*
+void onevent_Controller1ButtonDown_pressed_0() {
+  DigitalOutC.set(true);
+}
+*/
 //**********************************************************************************************
 
 void secForward(){
@@ -277,8 +289,7 @@ int main() {
   //drawSmileyAt(50, 200);
   //drawSmileyAt(400, 200);
 
-  //print car
-  //porsche();
+  porsche();
   //name();
 
  // setting up speeds
@@ -300,6 +311,8 @@ int main() {
   Controller1.ButtonDown.pressed(onevent_Controller1ButtonDown_pressed_0);
   Controller1.ButtonDown.released(onevent_Controller1ButtonDown_released_0);
   Controller1.ButtonUp.pressed(onevent_Controller1ButtonUp_pressed_0);
+
+  Controller1.ButtonA.pressed(onevent_Controller1ButtonA_pressed_0);
 
   //print to screen the velocity
   EncoderA.setRotation(0.0, degrees);
