@@ -27,7 +27,7 @@
 | `    17   `| Stop intake      |     L2   |
 |_______________| _______________ | _______________|
 | `    C   `| Pneumatics push     |     Up   |
-| `    14   `| String extender      |     Down   |
+| `    14   `| String extender      |     HOLD Down   |
 
 
 ## LAST EDIT: (12/5/2022), 9:12 PM 
