@@ -110,14 +110,16 @@ void onevent_Controller1Axis3Changed_0() {
 
 // "when Controller1 Axis1 changed" hat block
 void onevent_Controller1Axis1Changed_0() {
+  /*
   Motor4.spin(reverse);
   Motor7.spin(reverse);
   Motor6.spin(reverse);
   Motor5.spin(reverse);
-  Motor5.setVelocity((-0.75 * Controller1.Axis1.position()), percent);
+  */
+  Motor5.setVelocity((-0.75 * Controller1.Axis3.position()), percent);
   Motor6.setVelocity((-0.75 * Controller1.Axis1.position()), percent);
   Motor4.setVelocity(0.75 * Controller1.Axis1.position(), percent);
-  Motor7.setVelocity(0.75 * Controller1.Axis1.position(), percent);
+  Motor7.setVelocity(0.75 * Controller1.Axis3.position(), percent);
 }
 
 //**********************************************************************************************
@@ -310,11 +312,11 @@ int main() {
   Controller1.Axis1.changed(onevent_Controller1Axis1Changed_0);
 
   //Controls
-  Controller1.ButtonR1.pressed(onevent_Controller1ButtonR1_pressed_0);
-  Controller1.ButtonR2.pressed(onevent_Controller1ButtonR2_pressed_0);
+  Controller1.ButtonL1.pressed(onevent_Controller1ButtonR1_pressed_0);
+  Controller1.ButtonL2.pressed(onevent_Controller1ButtonR2_pressed_0);
   
-  Controller1.ButtonL1.pressed(onevent_Controller1ButtonL1_pressed_0);
-  Controller1.ButtonL2.pressed(onevent_Controller1ButtonL2_pressed_0);
+  Controller1.ButtonR1.pressed(onevent_Controller1ButtonL1_pressed_0);
+  Controller1.ButtonR2.pressed(onevent_Controller1ButtonL2_pressed_0);
   
   Controller1.ButtonDown.pressed(onevent_Controller1ButtonDown_pressed_0);
   Controller1.ButtonDown.released(onevent_Controller1ButtonDown_released_0);

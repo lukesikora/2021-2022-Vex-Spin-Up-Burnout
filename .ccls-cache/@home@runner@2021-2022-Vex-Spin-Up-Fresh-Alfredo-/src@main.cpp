@@ -11,7 +11,6 @@
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
 // Controller1          controller                    
-// Motor18              motor         18              
 // Motor17              motor         17              
 // Motor4               motor         4               
 // Motor5               motor         5               
@@ -20,6 +19,7 @@
 // EncoderA             encoder       A, B            
 // DigitalOutC          digital_out   C               
 // Motor14              motor         14              
+// Motor15              motor         15              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -110,14 +110,16 @@ void onevent_Controller1Axis3Changed_0() {
 
 // "when Controller1 Axis1 changed" hat block
 void onevent_Controller1Axis1Changed_0() {
+  /*
   Motor4.spin(reverse);
   Motor7.spin(reverse);
   Motor6.spin(reverse);
   Motor5.spin(reverse);
-  Motor5.setVelocity((-0.75 * Controller1.Axis1.position()), percent);
+  */
+  Motor5.setVelocity((-0.75 * Controller1.Axis3.position()), percent);
   Motor6.setVelocity((-0.75 * Controller1.Axis1.position()), percent);
   Motor4.setVelocity(0.75 * Controller1.Axis1.position(), percent);
-  Motor7.setVelocity(0.75 * Controller1.Axis1.position(), percent);
+  Motor7.setVelocity(0.75 * Controller1.Axis3.position(), percent);
 }
 
 //**********************************************************************************************
@@ -134,12 +136,12 @@ void onevent_Controller1ButtonL2_pressed_0() {
 //**********************************************************************************************
 // "when Controller1 ButtonR1 pressed" hat block
 void onevent_Controller1ButtonR1_pressed_0() {
-  Motor18.spin(forward);
+  Motor15.spin(forward);
 }
 
 // "when Controller1 ButtonR2 pressed" hat block
 void onevent_Controller1ButtonR2_pressed_0() {
-  Motor18.stop();
+  Motor15.stop();
 }
 
 void onevent_Controller1ButtonA_pressed_0() {
@@ -155,11 +157,10 @@ void onevent_Controller1ButtonDown_pressed_0() {
   Motor14.setVelocity(50, percent);
   wait(2.0, seconds);
   if (Controller1.ButtonDown.pressing()) {
-    Motor14.spinFor(forward, 200.0, degrees, true);
+    Motor14.spinFor(forward, 150.0, degrees, true);
   }
 }
 void onevent_Controller1ButtonDown_released_0() {
-  Motor14.setVelocity(50, percent);
   Motor14.stop();
   
 }
@@ -240,10 +241,19 @@ void driveRight() {
 
   stopp();
 }
+void rol() {
+  Motor17.spinFor(forward, 150.0, degrees, true);
+}
+void shoot() {
+  //Motor15.spin();
 
-
+}
 int onauton_autonomous_0() {
-  driveRight();
+  driveUp();
+  driveLeft();
+  rol();
+  driveLeft();
+  driveLeft();
   return 0;
 }
 
@@ -260,7 +270,7 @@ void VEXcode_auton_task() {
 
 //DRIVER CONTROLLED
 int ondriver_drivercontrol_0() {
-  Motor18.setVelocity(9999.0, percent);
+  Motor15.setVelocity(9999.0, percent);
   Motor17.setVelocity(9999.0, percent);
   return 0;
 }
@@ -293,7 +303,7 @@ int main() {
   //name();
 
  // setting up speeds
-  Motor18.setVelocity(9999, percent);
+  Motor15.setVelocity(9999, percent);
   Motor17.setVelocity(9999.0, percent);
   DigitalOutC.set(true);
 
@@ -302,11 +312,11 @@ int main() {
   Controller1.Axis1.changed(onevent_Controller1Axis1Changed_0);
 
   //Controls
-  Controller1.ButtonR1.pressed(onevent_Controller1ButtonR1_pressed_0);
-  Controller1.ButtonR2.pressed(onevent_Controller1ButtonR2_pressed_0);
+  Controller1.ButtonL1.pressed(onevent_Controller1ButtonR1_pressed_0);
+  Controller1.ButtonL2.pressed(onevent_Controller1ButtonR2_pressed_0);
   
-  Controller1.ButtonL1.pressed(onevent_Controller1ButtonL1_pressed_0);
-  Controller1.ButtonL2.pressed(onevent_Controller1ButtonL2_pressed_0);
+  Controller1.ButtonR1.pressed(onevent_Controller1ButtonL1_pressed_0);
+  Controller1.ButtonR2.pressed(onevent_Controller1ButtonL2_pressed_0);
   
   Controller1.ButtonDown.pressed(onevent_Controller1ButtonDown_pressed_0);
   Controller1.ButtonDown.released(onevent_Controller1ButtonDown_released_0);
