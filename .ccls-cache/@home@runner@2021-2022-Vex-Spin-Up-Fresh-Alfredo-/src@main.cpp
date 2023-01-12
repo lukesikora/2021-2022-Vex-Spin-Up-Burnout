@@ -16,10 +16,10 @@
 // Motor5               motor         5               
 // Motor6               motor         6               
 // Motor7               motor         7               
-// EncoderA             encoder       A, B            
 // DigitalOutC          digital_out   C               
 // Motor14              motor         14              
 // Motor15              motor         15              
+// DigitalOutB          digital_out   B               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -154,23 +154,21 @@ void onevent_Controller1ButtonA_pressed_0() {
 //**********************************************************************************************
 
 void onevent_Controller1ButtonDown_pressed_0() {
-  Motor14.setVelocity(50, percent);
   wait(2.0, seconds);
   if (Controller1.ButtonDown.pressing()) {
-    Motor14.spinFor(forward, 150.0, degrees, true);
+    DigitalOutB.set(false);
   }
 }
 void onevent_Controller1ButtonDown_released_0() {
-  Motor14.stop();
   
 }
 
   //PHENENEMUATICSSSS
 // "when Controller1 ButtonUp pressed" hat block
 void onevent_Controller1ButtonUp_pressed_0() {
-  DigitalOutC.set(false);
-  wait(0.5, seconds);
   DigitalOutC.set(true);
+  wait(0.5, seconds);
+  DigitalOutC.set(false);
 }
 /*
 void onevent_Controller1ButtonDown_pressed_0() {
@@ -305,8 +303,8 @@ int main() {
  // setting up speeds
   Motor15.setVelocity(9999, percent);
   Motor17.setVelocity(9999.0, percent);
-  DigitalOutC.set(true);
-
+  DigitalOutC.set(false);
+  DigitalOutB.set(true);
   //register event handlers
   Controller1.Axis3.changed(onevent_Controller1Axis3Changed_0);
   Controller1.Axis1.changed(onevent_Controller1Axis1Changed_0);
@@ -324,13 +322,4 @@ int main() {
 
   Controller1.ButtonA.pressed(onevent_Controller1ButtonA_pressed_0);
 
-  //print to screen the velocity
-  EncoderA.setRotation(0.0, degrees);
-  while (true) {
-  Controller1.Screen.print(static_cast<float>(EncoderA.velocity(rpm)));
-  wait(0.25, seconds);
-  Controller1.Screen.clearLine(1);
-  Controller1.Screen.setCursor(Controller1.Screen.row(), 1);
-  wait(5, msec);
-  }
 }
