@@ -9,10 +9,10 @@ extern motor Motor4;
 extern motor Motor5;
 extern motor Motor6;
 extern motor Motor7;
-extern encoder EncoderA;
 extern digital_out DigitalOutC;
 extern motor Motor14;
 extern motor Motor15;
+extern digital_out DigitalOutB;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

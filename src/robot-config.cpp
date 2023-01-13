@@ -14,10 +14,10 @@ motor Motor4 = motor(PORT4, ratio6_1, true);
 motor Motor5 = motor(PORT5, ratio6_1, false);
 motor Motor6 = motor(PORT6, ratio6_1, true);
 motor Motor7 = motor(PORT7, ratio6_1, false);
-encoder EncoderA = encoder(Brain.ThreeWirePort.A);
 digital_out DigitalOutC = digital_out(Brain.ThreeWirePort.C);
 motor Motor14 = motor(PORT14, ratio18_1, false);
 motor Motor15 = motor(PORT15, ratio6_1, false);
+digital_out DigitalOutB = digital_out(Brain.ThreeWirePort.B);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable
