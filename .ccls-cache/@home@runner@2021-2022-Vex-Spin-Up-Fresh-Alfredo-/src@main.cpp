@@ -110,16 +110,10 @@ void onevent_Controller1Axis3Changed_0() {
 
 // "when Controller1 Axis1 changed" hat block
 void onevent_Controller1Axis1Changed_0() {
-  /*
-  Motor4.spin(reverse);
-  Motor7.spin(reverse);
+  Motor7.spin(forward);
   Motor6.spin(reverse);
-  Motor5.spin(reverse);
-  */
-  Motor5.setVelocity((-0.75 * Controller1.Axis3.position()), percent);
-  Motor6.setVelocity((-0.75 * Controller1.Axis1.position()), percent);
-  Motor4.setVelocity(0.75 * Controller1.Axis1.position(), percent);
-  Motor7.setVelocity(0.75 * Controller1.Axis3.position(), percent);
+  Motor6.setVelocity(-1 * Controller1.Axis1.position() + Controller1.Axis3.position(), percent);
+ Motor7.setVelocity(1 * Controller1.Axis1.position() + Controller1.Axis3.position(), percent);
 }
 
 //**********************************************************************************************
@@ -160,16 +154,20 @@ void onevent_Controller1ButtonDown_pressed_0() {
   }
 }
 void onevent_Controller1ButtonDown_released_0() {
-  
+  DigitalOutB.set(true);
 }
 
   //PHENENEMUATICSSSS
 // "when Controller1 ButtonUp pressed" hat block
 void onevent_Controller1ButtonUp_pressed_0() {
   DigitalOutC.set(true);
-  wait(0.5, seconds);
+  wait(0.75, seconds);
   DigitalOutC.set(false);
 }
+void onevent_Controller1ButtonRight_pressed_0() {
+  DigitalOutC.set(true); }
+void onevent_Controller1ButtonLeft_pressed_0() {
+  DigitalOutC.set(false); }
 /*
 void onevent_Controller1ButtonDown_pressed_0() {
   DigitalOutC.set(true);
@@ -316,10 +314,26 @@ int main() {
   Controller1.ButtonR1.pressed(onevent_Controller1ButtonL1_pressed_0);
   Controller1.ButtonR2.pressed(onevent_Controller1ButtonL2_pressed_0);
   
-  Controller1.ButtonDown.pressed(onevent_Controller1ButtonDown_pressed_0);
+  Controller1.ButtonLeft.pressed(onevent_Controller1ButtonLeft_pressed_0);
+  Controller1.ButtonRight.pressed(onevent_Controller1ButtonRight_pressed_0);
   Controller1.ButtonDown.released(onevent_Controller1ButtonDown_released_0);
   Controller1.ButtonUp.pressed(onevent_Controller1ButtonUp_pressed_0);
 
   Controller1.ButtonA.pressed(onevent_Controller1ButtonA_pressed_0);
 
 }
+
+
+/*
+CHECKLIST
+1. Check controller battery and battery percentage
+
+2. Make sure every port is working
+
+3. Have good amount of air pumped
+
+4. Have auton set correct side
+
+5. Make sure string shooter is working
+
+*/
