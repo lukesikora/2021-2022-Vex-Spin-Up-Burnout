@@ -12,17 +12,18 @@
 // [Name]               [Type]        [Port(s)]
 // Controller1          controller                    
 // Motor17              motor         17              
-// Motor4               motor         4               
-// Motor5               motor         5               
-// Motor6               motor         6               
-// Motor7               motor         7               
 // DigitalOutC          digital_out   C               
-// Motor14              motor         14              
 // Motor15              motor         15              
 // DigitalOutB          digital_out   B               
+// Motor14              motor         14              
+// Motor10              motor         10              
+// Drivetrain           drivetrain    4, 5, 6, 7      
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
+#include <iostream>
+#include <bits/stdc++.h>
+
 using namespace vex;
 competition Competition;
 int Brain_precision = 0, Console_precision = 0, Controller1_precision = 0;
@@ -97,24 +98,26 @@ void name() {
 
 //DRIVING SETTINGS
 // "when Controller1 Axis3 changed" hat block
-void onevent_Controller1Axis3Changed_0() {
+/*void onevent_Controller1Axis3Changed_0() {
   Motor4.spin(forward);
-  Motor7.spin(forward);
-  Motor6.spin(reverse);
   Motor5.spin(reverse);
   Motor5.setVelocity(Controller1.Axis3.position(), percent);
   Motor6.setVelocity(Controller1.Axis3.position(), percent);
   Motor4.setVelocity(Controller1.Axis3.position(), percent);
   Motor7.setVelocity(Controller1.Axis3.position(), percent);
+  std::cout << "Axis 3" << std::endl;
+  std::cout << Controller1.Axis3.position() << std::endl;
+  std::cout << "Axis 4" << std::endl;
+  std::cout << Controller1.Axis4.position() << std::endl;
 }
 
 // "when Controller1 Axis1 changed" hat block
 void onevent_Controller1Axis1Changed_0() {
   Motor7.spin(forward);
   Motor6.spin(reverse);
-  Motor6.setVelocity(-1 * Controller1.Axis1.position() + Controller1.Axis3.position(), percent);
- Motor7.setVelocity(1 * Controller1.Axis1.position() + Controller1.Axis3.position(), percent);
-}
+  Motor6.setVelocity(-1.5 * (Controller1.Axis1.position() + Controller1.Axis3.position()), percent);
+  Motor7.setVelocity(1.5 * (Controller1.Axis1.position() + Controller1.Axis3.position()), percent);
+}*/
 
 //**********************************************************************************************
 // "when Controller1 ButtonL1 pressed" hat block
@@ -124,9 +127,11 @@ void onevent_Controller1ButtonL1_pressed_0() {
 
 // "when Controller1 ButtonL2 pressed" hat block
 void onevent_Controller1ButtonL2_pressed_0() {
+  Motor17.spin(reverse);
+}
+void onevent_Controller1ButtonL2_released_0() {
   Motor17.stop();
 }
-
 //**********************************************************************************************
 // "when Controller1 ButtonR1 pressed" hat block
 void onevent_Controller1ButtonR1_pressed_0() {
@@ -138,48 +143,48 @@ void onevent_Controller1ButtonR2_pressed_0() {
   Motor15.stop();
 }
 
-void onevent_Controller1ButtonA_pressed_0() {
-  DigitalOutC.set(false);
-  wait(2.0, seconds);
-  DigitalOutC.set(true);
-}
-
-
+/*void movement() {
+  while (true) {
+  int hypot = sqrt(Controller1.Axis3.position()^2 + Controller1.Axis4.position()^2);
+  int angle = atan2(Controller1.Axis3.position(), Controller1.Axis4.position()) * 180/M_PI;
+  Motor5.setPosition(angle, degrees);
+  Motor4.setPosition(angle, degrees);
+  Motor6.setPosition(angle, degrees);
+  Motor7.setPosition(angle, degrees);
+  
+  Motor4.setVelocity(hypot, percent);
+  Motor5.setVelocity(hypot, percent);
+  Motor6.setVelocity(hypot, percent);
+  Motor7.setVelocity(hypot, percent);
+  }
+    }
+*/
 //**********************************************************************************************
 
 void onevent_Controller1ButtonDown_pressed_0() {
   wait(2.0, seconds);
   if (Controller1.ButtonDown.pressing()) {
-    DigitalOutB.set(false);
+    DigitalOutB.set(true);
   }
 }
-void onevent_Controller1ButtonDown_released_0() {
-  DigitalOutB.set(true);
-}
+
 
   //PHENENEMUATICSSSS
 // "when Controller1 ButtonUp pressed" hat block
 void onevent_Controller1ButtonUp_pressed_0() {
-  DigitalOutC.set(false);
+  DigitalOutC.set(true);
   wait(0.75, seconds);
-  DigitalOutC.set(true);
+  DigitalOutC.set(false);
 }
-void onevent_Controller1ButtonRight_pressed_0() {
-  DigitalOutC.set(true); }
-void onevent_Controller1ButtonLeft_pressed_0() {
-  DigitalOutC.set(false); }
-/*
-void onevent_Controller1ButtonDown_pressed_0() {
-  DigitalOutC.set(true);
-}
-*/
-//**********************************************************************************************
 
+
+//**********************************************************************************************
+/*
 void secForward(){
-  wait(3, seconds);
+  wait(1, seconds);
 }
 void secSide(){
-  wait(3, seconds);
+  wait(0.6, seconds);
 }
 void velocityy(){
   Motor4.setVelocity(70, percent);
@@ -222,7 +227,7 @@ void driveUpLil() {
   Motor7.spin(forward);
   Motor6.spin(forward);
   Motor5.spin(forward);
-  wait(1, seconds);
+  wait(0.2, seconds);
   
   stopp();
 }
@@ -233,7 +238,7 @@ void driveBackLil() {
   Motor7.spin(reverse);
   Motor6.spin(reverse);
   Motor5.spin(reverse);
-  wait(1, seconds);
+  wait(0.5, seconds);
 
   stopp();
 }
@@ -255,7 +260,7 @@ void driveLeftLil() {
   Motor7.spin(forward);
   Motor6.spin(reverse);
   Motor5.spin(reverse);
-  wait(1, seconds);
+  wait(0.1, seconds);
 
   stopp();
 }
@@ -277,67 +282,69 @@ void driveRightLil() {
   Motor7.spin(reverse);
   Motor6.spin(forward);
   Motor5.spin(forward);
-  wait(1, seconds);
+  wait(0.25, seconds);
 
   stopp();
 }
 void rol() {
-  Motor17.spinFor(forward, 150.0, degrees, true);
+Motor17.setVelocity(80, percent);
+Motor17.spinFor(forward, -300.0, degrees, true);
 }
 void shoot() {
-  Motor17.spin(forward);
+  Motor15.spin(forward);
 }
 void stopShoot() {
-  Motor17.stop();
+  Motor15.stop();
 }
 void neu() {  
-  DigitalOutC.set(false);
+  DigitalOutC.set(true);
   wait(0.75, seconds);
-  DigitalOutC.set(true);
+  DigitalOutC.set(false);
 } 
-int onauton_autonomous_0() { //closer
-  DigitalOutC.set(true);
-  rol();
-  
+
+int onauton_autonomous_0() { //on
+  DigitalOutC.set(false);
+  DigitalOutB.set(false);
+  Motor17.spin(forward);
+  driveUpLil();
   wait(1, seconds);
-  driveBackLil();
+  Motor17.stop();
+  wait(1, seconds);
+  driveBack();
+  wait(1, seconds);
   driveLeft();
-  driveUp();
-  
+  wait(0.5, seconds);
+  driveBack();
+  wait(1, seconds);
   shoot();
-  wait(4, seconds);
-  neu();
+  for (int i = 0; i < 4; i++) {
+    wait(4, seconds);
+    neu();
+  }
   stopShoot();
-  
-  driveLeft();
-  
   return 0;
 }
+*/
 /*
-int onauton_autonomous_0() { // further
-  DigitalOutC.set(true);
-  driveRight();
-  driveUp();
+int onauton_autonomous_0() { //outside
+  DigitalOutC.set(false);
+  DigitalOutB.set(false);
+  driveBack();
+  driveLeft();
+
+
   driveUpLil();
-  driveRight();
-  driveUpLil();
-  
+  wait(1, seconds);
   rol();
-  
-  driveBackLil();
-  driveRight();
-  driveRight();
-  driveUp();
-  driveUp();
-  driveRightLil();
-  
+  wait(2, seconds);
+  driveLeft();
+  wait(1, seconds);
   shoot();
-  wait(4, seconds);
-  neu();
+  for (int i = 0; i < 4; i++) {
+    wait(4, seconds);
+    neu();
+  }
   stopShoot();
-  
-  driveLeft();
-  driveLeft();
   return 0;
 }
 */
@@ -389,11 +396,11 @@ int main() {
  // setting up speeds
   Motor15.setVelocity(9999, percent);
   Motor17.setVelocity(9999.0, percent);
-  DigitalOutC.set(true);
-  DigitalOutB.set(true);
+  DigitalOutC.set(false);
+  DigitalOutB.set(false);
   //register event handlers
-  Controller1.Axis3.changed(onevent_Controller1Axis3Changed_0);
-  Controller1.Axis1.changed(onevent_Controller1Axis1Changed_0);
+  //Controller1.Axis3.changed(onevent_Controller1Axis3Changed_0);
+  //Controller1.Axis4.changed(onevent_Controller1Axis1Changed_0);
 
   //Controls
   Controller1.ButtonL1.pressed(onevent_Controller1ButtonR1_pressed_0);
@@ -401,14 +408,11 @@ int main() {
   
   Controller1.ButtonR1.pressed(onevent_Controller1ButtonL1_pressed_0);
   Controller1.ButtonR2.pressed(onevent_Controller1ButtonL2_pressed_0);
-  
-  Controller1.ButtonLeft.pressed(onevent_Controller1ButtonLeft_pressed_0);
-  Controller1.ButtonRight.pressed(onevent_Controller1ButtonRight_pressed_0);
-  Controller1.ButtonDown.released(onevent_Controller1ButtonDown_released_0);
+  Controller1.ButtonR2.released(onevent_Controller1ButtonL2_released_0);
+   
   Controller1.ButtonUp.pressed(onevent_Controller1ButtonUp_pressed_0);
-
-  Controller1.ButtonA.pressed(onevent_Controller1ButtonA_pressed_0);
-
+  Controller1.ButtonDown.pressed(onevent_Controller1ButtonDown_pressed_0);
+  movement();
 }
 
 

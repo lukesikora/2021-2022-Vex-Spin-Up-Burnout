@@ -160,9 +160,9 @@ void onevent_Controller1ButtonDown_released_0() {
   //PHENENEMUATICSSSS
 // "when Controller1 ButtonUp pressed" hat block
 void onevent_Controller1ButtonUp_pressed_0() {
-  DigitalOutC.set(true);
-  wait(0.75, seconds);
   DigitalOutC.set(false);
+  wait(0.75, seconds);
+  DigitalOutC.set(true);
 }
 void onevent_Controller1ButtonRight_pressed_0() {
   DigitalOutC.set(true); }
@@ -291,11 +291,12 @@ void stopShoot() {
   Motor17.stop();
 }
 void neu() {  
-  DigitalOutC.set(true);
-  wait(0.75, seconds);
   DigitalOutC.set(false);
+  wait(0.75, seconds);
+  DigitalOutC.set(true);
 } 
 int onauton_autonomous_0() { //closer
+  DigitalOutC.set(true);
   rol();
   
   wait(1, seconds);
@@ -312,8 +313,9 @@ int onauton_autonomous_0() { //closer
   
   return 0;
 }
-
+/*
 int onauton_autonomous_0() { // further
+  DigitalOutC.set(true);
   driveRight();
   driveUp();
   driveUpLil();
@@ -338,7 +340,7 @@ int onauton_autonomous_0() { // further
   driveLeft();
   return 0;
 }
-
+*/
 //**********************************************************************************************
 
 //AUTONOMOUS SETUP
@@ -387,7 +389,7 @@ int main() {
  // setting up speeds
   Motor15.setVelocity(9999, percent);
   Motor17.setVelocity(9999.0, percent);
-  DigitalOutC.set(false);
+  DigitalOutC.set(true);
   DigitalOutB.set(true);
   //register event handlers
   Controller1.Axis3.changed(onevent_Controller1Axis3Changed_0);
