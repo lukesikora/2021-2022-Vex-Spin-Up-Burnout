@@ -176,16 +176,16 @@ void onevent_Controller1ButtonDown_pressed_0() {
 //**********************************************************************************************
 
 void secForward(){
-  wait(10, seconds);
+  wait(3, seconds);
 }
 void secSide(){
-  wait(10, seconds);
+  wait(3, seconds);
 }
 void velocityy(){
-  Motor4.setVelocity(20, percent);
-  Motor7.setVelocity(20, percent);
-  Motor6.setVelocity(20, percent);
-  Motor5.setVelocity(20, percent);
+  Motor4.setVelocity(70, percent);
+  Motor7.setVelocity(70, percent);
+  Motor6.setVelocity(70, percent);
+  Motor5.setVelocity(70, percent);
 }
 void stopp() {
   Motor4.stop();
@@ -215,6 +215,28 @@ void driveBack() {
 
   stopp();
 }
+void driveUpLil() {
+  velocityy();
+  
+  Motor4.spin(forward);
+  Motor7.spin(forward);
+  Motor6.spin(forward);
+  Motor5.spin(forward);
+  wait(1, seconds);
+  
+  stopp();
+}
+void driveBackLil() {
+  velocityy();
+  
+  Motor4.spin(reverse);
+  Motor7.spin(reverse);
+  Motor6.spin(reverse);
+  Motor5.spin(reverse);
+  wait(1, seconds);
+
+  stopp();
+}
 void driveLeft() {
   velocityy();
   
@@ -223,6 +245,17 @@ void driveLeft() {
   Motor6.spin(reverse);
   Motor5.spin(reverse);
   secSide();
+
+  stopp();
+}
+void driveLeftLil() {
+  velocityy();
+  
+  Motor4.spin(forward);
+  Motor7.spin(forward);
+  Motor6.spin(reverse);
+  Motor5.spin(reverse);
+  wait(1, seconds);
 
   stopp();
 }
@@ -237,17 +270,70 @@ void driveRight() {
 
   stopp();
 }
+void driveRightLil() {
+  velocityy();
+  
+  Motor4.spin(reverse);
+  Motor7.spin(reverse);
+  Motor6.spin(forward);
+  Motor5.spin(forward);
+  wait(1, seconds);
+
+  stopp();
+}
 void rol() {
   Motor17.spinFor(forward, 150.0, degrees, true);
 }
 void shoot() {
-  //Motor15.spin();
-
+  Motor17.spin(forward);
 }
-int onauton_autonomous_0() {
-  driveUp();
-  driveLeft();
+void stopShoot() {
+  Motor17.stop();
+}
+void neu() {  
+  DigitalOutC.set(true);
+  wait(0.75, seconds);
+  DigitalOutC.set(false);
+} 
+int onauton_autonomous_0() { //closer
   rol();
+  
+  wait(1, seconds);
+  driveBackLil();
+  driveLeft();
+  driveUp();
+  
+  shoot();
+  wait(4, seconds);
+  neu();
+  stopShoot();
+  
+  driveLeft();
+  
+  return 0;
+}
+
+int onauton_autonomous_0() { // further
+  driveRight();
+  driveUp();
+  driveUpLil();
+  driveRight();
+  driveUpLil();
+  
+  rol();
+  
+  driveBackLil();
+  driveRight();
+  driveRight();
+  driveUp();
+  driveUp();
+  driveRightLil();
+  
+  shoot();
+  wait(4, seconds);
+  neu();
+  stopShoot();
+  
   driveLeft();
   driveLeft();
   return 0;
