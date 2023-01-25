@@ -98,25 +98,25 @@ void name() {
 
 //**********************************************************************************************
 // "when Controller1 ButtonL1 pressed" hat block
-void onevent_Controller1ButtonL1_pressed_0() {
+void onevent_Controller1ButtonR1_pressed_0() {
   Motor17.spin(forward);
 }
 
 // "when Controller1 ButtonL2 pressed" hat block
-void onevent_Controller1ButtonL2_pressed_0() {
+void onevent_Controller1ButtonR2_pressed_0() {
   Motor17.spin(reverse);
 }
-void onevent_Controller1ButtonL2_released_0() {
+void onevent_Controller1ButtonR2_released_0() {
   Motor17.stop();
 }
 //**********************************************************************************************
 // "when Controller1 ButtonR1 pressed" hat block
-void onevent_Controller1ButtonR1_pressed_0() {
+void onevent_Controller1ButtonL1_pressed_0() {
   Motor15.spin(forward);
 }
 
 // "when Controller1 ButtonR2 pressed" hat block
-void onevent_Controller1ButtonR2_pressed_0() {
+void onevent_Controller1ButtonL2_pressed_0() {
   Motor15.stop();
 }
 
@@ -130,13 +130,13 @@ void onevent_Controller1ButtonDown_pressed_0() {
   }
 }
 
-
   //PHENENEMUATICSSSS
 // "when Controller1 ButtonUp pressed" hat block
 void onevent_Controller1ButtonUp_pressed_0() {
-  DigitalOutC.set(true);
-  wait(0.75, seconds);
   DigitalOutC.set(false);
+  wait(0.75, seconds);
+  DigitalOutC.set(true);
+  //false = pushed out
 }
 
 
@@ -160,8 +160,10 @@ void neu() {
 
 
 int onauton_autonomous_0() { 
-  drivetrain.drive_for(FORWARD, 200, MM, wait=True)
+  Drivetrain.driveFor(forward, 0.5, inches); 
   rol();
+  Drivetrain.turnFor(right, 180, degrees); 
+  
   return 0;
 }
 
@@ -215,12 +217,12 @@ int main() {
   DigitalOutB.set(false);
 
   //register event handlers
-  Controller1.ButtonL1.pressed(onevent_Controller1ButtonR1_pressed_0);
-  Controller1.ButtonL2.pressed(onevent_Controller1ButtonR2_pressed_0);
+  Controller1.ButtonL1.pressed(onevent_Controller1ButtonL1_pressed_0);
+  Controller1.ButtonL2.pressed(onevent_Controller1ButtonL2_pressed_0);
   
-  Controller1.ButtonR1.pressed(onevent_Controller1ButtonL1_pressed_0);
-  Controller1.ButtonR2.pressed(onevent_Controller1ButtonL2_pressed_0);
-  Controller1.ButtonR2.released(onevent_Controller1ButtonL2_released_0);
+  Controller1.ButtonR1.pressed(onevent_Controller1ButtonR1_pressed_0);
+  Controller1.ButtonR2.pressed(onevent_Controller1ButtonR2_pressed_0);
+  Controller1.ButtonR2.released(onevent_Controller1ButtonR2_released_0);
    
   Controller1.ButtonUp.pressed(onevent_Controller1ButtonUp_pressed_0);
   Controller1.ButtonDown.pressed(onevent_Controller1ButtonDown_pressed_0);
