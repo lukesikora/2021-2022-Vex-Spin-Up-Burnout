@@ -11,13 +11,11 @@
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
 // Controller1          controller                    
-// Motor17              motor         17              
-// DigitalOutC          digital_out   C               
+// Drivetrain           drivetrain    4, 6, 5, 7      
 // Motor15              motor         15              
 // DigitalOutB          digital_out   B               
-// Motor14              motor         14              
-// Motor10              motor         10              
-// Drivetrain           drivetrain    4, 7, 6, 5      
+// DigitalOutC          digital_out   C               
+// Motor20              motor         20              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -99,15 +97,15 @@ void name() {
 //**********************************************************************************************
 // "when Controller1 ButtonL1 pressed" hat block
 void onevent_Controller1ButtonR1_pressed_0() {
-  Motor17.spin(forward);
+  Motor20.spin(forward);
 }
 
 // "when Controller1 ButtonL2 pressed" hat block
 void onevent_Controller1ButtonR2_pressed_0() {
-  Motor17.spin(reverse);
+  Motor20.spin(reverse);
 }
 void onevent_Controller1ButtonR2_released_0() {
-  Motor17.stop();
+  Motor20.stop();
 }
 //**********************************************************************************************
 // "when Controller1 ButtonR1 pressed" hat block
@@ -143,12 +141,10 @@ void onevent_Controller1ButtonUp_pressed_0() {
 //**********************************************************************************************
 
 void rol() {
-Motor17.setVelocity(80, percent);
-Motor17.spinFor(forward, -300.0, degrees, true);
+Motor20.setVelocity(80, percent);
+Motor20.spinFor(forward, -300.0, degrees, true);
 }
-void shoot() {
-  Motor15.spin(forward);
-}
+
 void stopShoot() {
   Motor15.stop();
 }
@@ -157,13 +153,22 @@ void neu() {
   wait(0.75, seconds);
   DigitalOutC.set(false);
 } 
-
+void shoot() {
+  Motor15.spin(forward);
+  for (int i = 0; i < 3; i++) {
+    while (Motor15.velocity(percent) <= 60){
+      //std::cout << "WAAt" << std::endl;
+    }
+    neu();
+    std::cout << "VEXcode" << std::endl;
+  }
+}
 
 int onauton_autonomous_0() { 
-  Drivetrain.driveFor(forward, 0.5, inches); 
-  rol();
-  Drivetrain.turnFor(right, 180, degrees); 
-  
+  shoot();
+  //Drivetrain.driveFor(forward, 0.5, inches); 
+  //rol();
+  //Drivetrain.turnFor(right, 180, degrees); 
   return 0;
 }
 
@@ -212,7 +217,7 @@ int main() {
 
   // setting up speeds
   Motor15.setVelocity(9999, percent);
-  Motor17.setVelocity(9999.0, percent);
+  Motor20.setVelocity(9999.0, percent);
   DigitalOutC.set(false);
   DigitalOutB.set(false);
 
