@@ -6,16 +6,17 @@
 /*    Description:  V5 project                                                */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
-
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
 // Controller1          controller                    
-// Drivetrain           drivetrain    4, 6, 5, 7      
+// Drivetrain           drivetrain    4, 7, 5, 6      
 // Motor15              motor         15              
 // DigitalOutB          digital_out   B               
 // DigitalOutC          digital_out   C               
 // Motor20              motor         20              
+// DigitalOutD          digital_out   D               
+// Motor19              motor         19              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -120,6 +121,22 @@ void onevent_Controller1ButtonL2_pressed_0() {
 
 
 //**********************************************************************************************
+void onevent_Controller1ButtonA_pressed_0() {
+  Motor19.setVelocity(100, percent);
+  Motor19.spin(forward);
+}
+
+void onevent_Controller1ButtonB_pressed_0() {
+  Motor19.setVelocity(100, percent);
+  Motor19.spin(reverse);
+}
+
+void onevent_Controller1ButtonA_released_0() {
+  Motor19.stop();
+}
+void onevent_Controller1ButtonB_released_0() {
+  Motor19.stop();
+}
 
 void onevent_Controller1ButtonDown_pressed_0() {
   wait(2.0, seconds);
@@ -132,8 +149,10 @@ void onevent_Controller1ButtonDown_pressed_0() {
 // "when Controller1 ButtonUp pressed" hat block
 void onevent_Controller1ButtonUp_pressed_0() {
   DigitalOutC.set(false);
-  wait(0.75, seconds);
+  DigitalOutD.set(false);
+  wait(1, seconds);
   DigitalOutC.set(true);
+  DigitalOutD.set(true);
   //false = pushed out
 }
 
@@ -218,7 +237,8 @@ int main() {
   // setting up speeds
   Motor15.setVelocity(9999, percent);
   Motor20.setVelocity(9999.0, percent);
-  DigitalOutC.set(false);
+  DigitalOutC.set(true);
+  DigitalOutD.set(true);
   DigitalOutB.set(false);
 
   //register event handlers
@@ -231,6 +251,11 @@ int main() {
    
   Controller1.ButtonUp.pressed(onevent_Controller1ButtonUp_pressed_0);
   Controller1.ButtonDown.pressed(onevent_Controller1ButtonDown_pressed_0);
+  
+  Controller1.ButtonA.pressed(onevent_Controller1ButtonA_pressed_0);
+  Controller1.ButtonB.pressed(onevent_Controller1ButtonB_pressed_0);
+  Controller1.ButtonA.released(onevent_Controller1ButtonA_released_0);
+  Controller1.ButtonB.released(onevent_Controller1ButtonB_released_0);
 }
 
 

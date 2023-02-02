@@ -166,9 +166,9 @@ void shoot() {
 
 int onauton_autonomous_0() { 
   shoot();
-  //Drivetrain.driveFor(forward, 0.5, inches); 
-  //rol();
-  //Drivetrain.turnFor(right, 180, degrees); 
+  Drivetrain.driveFor(forward, 0.5, inches); 
+  rol();
+  Drivetrain.turnFor(right, 180, degrees); 
   return 0;
 }
 
@@ -246,4 +246,4 @@ CHECKLIST
 
 5. Make sure string shooter is working
 
-*/
+*/  
