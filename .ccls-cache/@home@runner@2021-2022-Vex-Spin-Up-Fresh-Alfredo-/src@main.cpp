@@ -6,16 +6,17 @@
 /*    Description:  V5 project                                                */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
-
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
 // Controller1          controller                    
-// Drivetrain           drivetrain    4, 6, 5, 7      
+// Drivetrain           drivetrain    4, 7, 5, 6      
 // Motor15              motor         15              
 // DigitalOutB          digital_out   B               
 // DigitalOutC          digital_out   C               
 // Motor20              motor         20              
+// DigitalOutD          digital_out   D               
+// Motor19              motor         19              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -107,9 +108,11 @@ void onevent_Controller1ButtonR2_pressed_0() {
 void onevent_Controller1ButtonR2_released_0() {
   Motor20.stop();
 }
+
 //**********************************************************************************************
 // "when Controller1 ButtonR1 pressed" hat block
 void onevent_Controller1ButtonL1_pressed_0() {
+  Motor15.setVelocity(100, percent);
   Motor15.spin(forward);
 }
 
@@ -120,6 +123,22 @@ void onevent_Controller1ButtonL2_pressed_0() {
 
 
 //**********************************************************************************************
+void onevent_Controller1ButtonA_pressed_0() {
+  Motor19.setVelocity(100, percent);
+  Motor19.spin(forward);
+}
+
+void onevent_Controller1ButtonB_pressed_0() {
+  Motor19.setVelocity(100, percent);
+  Motor19.spin(reverse);
+}
+
+void onevent_Controller1ButtonA_released_0() {
+  Motor19.stop();
+}
+void onevent_Controller1ButtonB_released_0() {
+  Motor19.stop();
+}
 
 void onevent_Controller1ButtonDown_pressed_0() {
   wait(2.0, seconds);
@@ -132,8 +151,10 @@ void onevent_Controller1ButtonDown_pressed_0() {
 // "when Controller1 ButtonUp pressed" hat block
 void onevent_Controller1ButtonUp_pressed_0() {
   DigitalOutC.set(false);
-  wait(0.75, seconds);
+  DigitalOutD.set(false);
+  wait(1, seconds);
   DigitalOutC.set(true);
+  DigitalOutD.set(true);
   //false = pushed out
 }
 
@@ -141,34 +162,46 @@ void onevent_Controller1ButtonUp_pressed_0() {
 //**********************************************************************************************
 
 void rol() {
-Motor20.setVelocity(80, percent);
-Motor20.spinFor(forward, -300.0, degrees, true);
+Motor19.setVelocity(80, percent);
+Motor19.spinFor(forward, -220.0, degrees, true);
 }
 
 void stopShoot() {
   Motor15.stop();
 }
 void neu() {  
-  DigitalOutC.set(true);
-  wait(0.75, seconds);
   DigitalOutC.set(false);
+  DigitalOutD.set(false);
+  wait(1, seconds);
+  DigitalOutC.set(true);
+  DigitalOutD.set(true);
 } 
 void shoot() {
   Motor15.spin(forward);
+  wait(2, seconds);
   for (int i = 0; i < 3; i++) {
-    while (Motor15.velocity(percent) <= 60){
-      //std::cout << "WAAt" << std::endl;
-    }
+    wait(3, seconds);
     neu();
-    std::cout << "VEXcode" << std::endl;
   }
 }
 
 int onauton_autonomous_0() { 
   shoot();
-  //Drivetrain.driveFor(forward, 0.5, inches); 
-  //rol();
-  //Drivetrain.turnFor(right, 180, degrees); 
+  wait(4, seconds);
+  Drivetrain.setDriveVelocity(80, percent);
+  Drivetrain.setTurnVelocity(80, percent);
+  Drivetrain.turnFor(left, 400, degrees); 
+  wait(1, seconds);
+  Drivetrain.driveFor(reverse, 30, inches); 
+  wait(1, seconds);
+  Drivetrain.driveFor(reverse, 5, inches); 
+  wait(1, seconds);
+  rol();
+  wait(1, seconds);
+  Drivetrain.driveFor(forward, 30, inches); 
+  wait(1, seconds);
+  Drivetrain.turnFor(left, 400, degrees); 
+  Drivetrain.driveFor(reverse, 60, inches); 
   return 0;
 }
 
@@ -218,7 +251,8 @@ int main() {
   // setting up speeds
   Motor15.setVelocity(9999, percent);
   Motor20.setVelocity(9999.0, percent);
-  DigitalOutC.set(false);
+  DigitalOutC.set(true);
+  DigitalOutD.set(true);
   DigitalOutB.set(false);
 
   //register event handlers
@@ -231,6 +265,11 @@ int main() {
    
   Controller1.ButtonUp.pressed(onevent_Controller1ButtonUp_pressed_0);
   Controller1.ButtonDown.pressed(onevent_Controller1ButtonDown_pressed_0);
+  
+  Controller1.ButtonA.pressed(onevent_Controller1ButtonA_pressed_0);
+  Controller1.ButtonB.pressed(onevent_Controller1ButtonB_pressed_0);
+  Controller1.ButtonA.released(onevent_Controller1ButtonA_released_0);
+  Controller1.ButtonB.released(onevent_Controller1ButtonB_released_0);
 }
 
 
