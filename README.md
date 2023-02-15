@@ -1,5 +1,7 @@
-# BURNOUT (1965 N)
+
 ![](./media/Stevenson_vex_logo.png "Stevenson Robotics 2021-2022")
+# BURNOUT (1965 N)
+![](./media/robot.jpg "1965N")
 ## Designed for the 2021-2022 VRC [Spin Up](https://www.vexrobotics.com/v5/competition/vrc-current-game).
 
 ## **The Team:**
@@ -30,4 +32,4 @@
 | `    14   `| String extender      |     HOLD Down   |
 
 
-## LAST EDIT: (12/5/2022), 9:12 PM 
+## LAST EDIT: (2/15/2023), 3:48 PM 

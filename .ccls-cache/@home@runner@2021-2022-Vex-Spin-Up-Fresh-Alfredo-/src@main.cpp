@@ -163,7 +163,7 @@ void onevent_Controller1ButtonUp_pressed_0() {
 
 void rol() {
 Motor19.setVelocity(80, percent);
-Motor19.spinFor(forward, -220.0, degrees, true);
+Motor19.spinFor(forward, 220.0, degrees, true);
 }
 
 void stopShoot() {
@@ -178,33 +178,60 @@ void neu() {
 } 
 void shoot() {
   Motor15.spin(forward);
-  wait(2, seconds);
-  for (int i = 0; i < 3; i++) {
-    wait(3, seconds);
+  wait(1, seconds);
+  for (int i = 0; i < 4; i++) {
+    wait(0.5, seconds);
     neu();
   }
+  Motor15.stop();
 }
 
-int onauton_autonomous_0() { 
-  shoot();
-  wait(4, seconds);
+int onauton_autonomous_0() { //left side
   Drivetrain.setDriveVelocity(80, percent);
   Drivetrain.setTurnVelocity(80, percent);
-  Drivetrain.turnFor(left, 400, degrees); 
+  DigitalOutC.set(true);
+  DigitalOutD.set(true);
+  Drivetrain.driveFor(reverse, 20, inches, true); 
   wait(1, seconds);
-  Drivetrain.driveFor(reverse, 30, inches); 
+  Drivetrain.turnFor(left, 420, degrees); 
   wait(1, seconds);
-  Drivetrain.driveFor(reverse, 5, inches); 
-  wait(1, seconds);
+  Drivetrain.driveFor(reverse, 32, inches); 
+  wait(0.5, seconds);
+  Drivetrain.driveFor(reverse, 5, inches, true); 
   rol();
-  wait(1, seconds);
-  Drivetrain.driveFor(forward, 30, inches); 
-  wait(1, seconds);
-  Drivetrain.turnFor(left, 400, degrees); 
+  Drivetrain.driveFor(forward, 30, inches, true); 
+  Drivetrain.turnFor(left, 460, degrees); 
+  wait(0.5, seconds);
   Drivetrain.driveFor(reverse, 60, inches); 
+  shoot();
+  return 0;
+} 
+/*
+int onauton_autonomous_0() { //right
+  Drivetrain.setDriveVelocity(80, percent);
+  Drivetrain.setTurnVelocity(80, percent);
+  Drivetrain.driveFor(reverse, 70, inches, true); 
+  Drivetrain.turnFor(right, 418, degrees, true); 
+  Drivetrain.driveFor(reverse, 30, inches, true); 
+  wait(1, seconds);
+  Drivetrain.driveFor(reverse, 5, inches, true); 
+  rol();
+  wait(0.5, seconds);
+  Drivetrain.driveFor(forward, 40, inches, true);
+  Drivetrain.turnFor(right, 520, degrees, true); 
+  Drivetrain.driveFor(reverse, 60, inches, true); 
+  wait(1, seconds);
+  Motor15.spin(forward);
+  wait(2, seconds);
+  neu();
+  for (int i = 0; i<2; i++){
+    wait(1, seconds);
+    neu();
+  }
+  Motor15.stop();
   return 0;
 }
-
+*/
 //**********************************************************************************************
 
 //AUTONOMOUS SETUP
@@ -256,8 +283,8 @@ int main() {
   DigitalOutB.set(false);
 
   //register event handlers
-  Controller1.ButtonL1.pressed(onevent_Controller1ButtonL1_pressed_0);
-  Controller1.ButtonL2.pressed(onevent_Controller1ButtonL2_pressed_0);
+  Controller1.ButtonL2.pressed(onevent_Controller1ButtonL1_pressed_0);
+  Controller1.ButtonL1.pressed(onevent_Controller1ButtonL2_pressed_0);
   
   Controller1.ButtonR1.pressed(onevent_Controller1ButtonR1_pressed_0);
   Controller1.ButtonR2.pressed(onevent_Controller1ButtonR2_pressed_0);
