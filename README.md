@@ -5,8 +5,8 @@
 ## Designed for the 2021-2022 VRC [Spin Up](https://www.vexrobotics.com/v5/competition/vrc-current-game).
 
 ## **The Team:**
-- Dylan Patel
 - Luke Sikora - *Coder*
+- Dylan Patel
 - Matthew Okladlo
 - Nidhi Kirani
 - Raghav Agrawal
